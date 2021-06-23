@@ -1,0 +1,6 @@
+- Let the user choose the driver for the race 
+- compare race time to past races and qualifying time/ practice time
+	- show time differences sec+-
+- get avg data and create a graph and show progress of f1 cars with the given data
+	- use linear regression model to see how the car will progress
+		- for each car or all of f1 as avg.
