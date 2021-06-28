@@ -4,6 +4,7 @@
   "dependencies": {
     "@material/tab-bar": "^10.0.0",
     "axios": "^0.21.1",
+    "chart.js": "^3.3.2",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1"

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    
+</head>
+
+<body class="container">
+
+
+    <header>    
+        <%- include('../partials/header'); %>
+    </header>
+  
+    <main>
+        
+        
+    
+        <form action="process_form" method="post">   
+
+        <div class="row align-items-center">
+
+            <div class="col jumbotron" id="search">
+                <input type="text" id="song" name="song" class="form-control" placeholder="Enter Race" required
+                autofocus>
+                <br>
+                <input type="text" id="oldrace" name="oldrace" class="form-control" placeholder="Enter Year">
+
+
+                <br>
+                <input class="btn btn-lg btn-primary btn-block" id="sub" type="submit">
+                </form>
+            </div>
+          
+            <div class="col-md-auto">
+            </div>
+            <div class="col jumbotron" id="raceinfo">
+               <div class="row align-item-center">
+            <% if (locals.race) { %>
+            <!-- I encapsulate the results in a <p1> in order to use it with the hide/show allowing me to hide the entire section -->
+           
+                <h1 id="text"> <%= race.raceName %> </h1> 
+                <h3> Circuit: <%= race.Circuit.circuitName %> </br>
+                 Location: <%= race.Circuit.Location.locality + ", " + race.Circuit.Location.country + " " %> </br>
+                Date: <%= race.date %> 
+        
+            <% } %>
+        </div>
+            </div>
+            </div>
+
+            <% if (locals.race) { %>
+        <div class="row align-items-end">
+            <div class="col jumbotron" id="picture">
+        
+                <div class="row align-item-start">
+                    
+                    <div class="col">
+                    </div>
+
+                    <div class="col" id="driverpic">
+                        <% var name = driver.givenName + driver.familyName %> 
+                        <img src="<%=name%>.png" width='150' height='150'>   
+                    </div>
+
+                    <div class="col">
+                    </div>
+
+                </div>
+
+                <div class="row align-item-start">
+                    <div class="col" align="center">
+                        <h3> <%= driver.givenName + " " +  driver.familyName + " " + driver.permanentNumber%>  <br>
+                            Nationality: <%= driver.nationality %> <br>
+                        Team: <%=time.Constructor.name %> </h3>
+                    </div>        
+                </div>
+
+              </div>
+
+              <div class="col-md-auto">
+            </div>
+
+              <div class="col jumbotron" id="laptimes">
+                  <div class="row align-items-center">
+                     <table class="table table-striped table-hover" id="tablelap">
+                         <thead>
+                             <tr>
+                                 <th scope="col"> Session </th>
+                                 <th scope="col"> Fastest Lap </th>
+                                
+                             </tr>
+                         </thead>
+
+                         <tbody>
+                             <tr>
+                                <th scope="row"> Q1 </th>
+                                <th scope="col"><%= Qual.Q1 %></th>
+                                
+                               
+                            </tr>
+                            <tr>
+                                <th scope="row"> Q2 </th>
+                                <th scope="col"> <%= Qual.Q2 %></th>
+                        
+                       
+                            </tr>
+                            <tr>
+                                <th scope="row"> Q3 </th>
+                                <th scope="col"><%= Qual.Q3 %></th>
+                            
+                            
+                            </tr>
+                            <tr>
+                                <th scope="row"> Race </th>
+                                <th scope="col"><%= time.FastestLap.Time.time %></th>
+                               
+                            
+                            </tr>
+                         </tbody>
+                     </table> 
+                 
+                </div>
+               
+             
+              </div>
+
+              <div class="col-md-auto">
+            </div>
+         
+              <div class="col jumbotron" id="graph">
+                
+                <% var q1 = Qual.Q1 
+                   var q2 = Qual.Q2    
+                   var q3 = Qual.Q3                 
+                    var race = time.FastestLap.Time.time
+                %>
+                <canvas id="myChart" width="50" height="50"></canvas>
+                <p id="demo"></p>
+                <p id="demo1"></p>
+                <p id="demo2"></p>
+                <p id="demo3"></p>
+                
+                <script>
+                 var Q1 = "<%=q1%>";
+                 var Q2 = "<%=q2%>";
+                 var Q3 = "<%=q3%>";
+                 var race = "<%=race%>";
+               
+                 function myFunction(x) {
+             
+             var res = x.substr(0,1);
+             var a = x.substring(2,4);
+             var c=  x.substring(5,8);
+             var d = parseFloat(res + "." + a + c);
+           
+             return d
+         }
+         var Qual1 = myFunction(Q1);
+         var Qual2 = myFunction(Q2);
+         var Qual3 = myFunction(Q3);
+         var RaceS = myFunction(race);
+
+                
+
+               const CHART = document.getElementById("myChart");
+               console.log(CHART)
+               let lineChart= new Chart(CHART, {
+                   type:'line',
+                   data: {
+            labels: ["Q1","Q2","Q3","Race"],
+            datasets: [
+                {
+                    label: "Weekend Pace",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75, 192, 192, 0.4)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHitRadius: 10,
+                    data: [Qual1,Qual2,Qual3,RaceS],
+                }
+            ]},
+              options: {
+            scales: {
+                yAxes: [{
+            display: true,
+            stacked: true,
+            ticks: {
+                min: 0, // minimum value
+                max: 10 // maximum value
+            }
+        }]
+            }
+            }
+
+
+               });
+                </script>   
+               
+            </div>
+        
+
+
+        </div>
+        <% } %>
+      
+
+    </main>
+
+    <footer>
+        <!-- calls onto the footer.ejs to insert the code into the file. -->
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>
