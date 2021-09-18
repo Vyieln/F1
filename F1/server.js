@@ -18,7 +18,45 @@ app.get('/', function(req, res) {
   
 });
 
+app.get('/test', function(req, res) {
 
+  res.render('pages/index(new)');
+  
+
+});
+
+
+
+app.get('/leaderboard', function(req,res){
+  
+
+let one = `http://ergast.com/api/f1/current/driverStandings.json`
+let two = `https://ergast.com/api/f1/current/constructorStandings.json`
+let three = 'http://127.0.0.1:5000/api/friends/all'
+const requestOne = axios.get(one);
+const requestTwo = axios.get(two);
+const requestThree = axios.get(three)
+
+axios.all([requestOne,requestTwo,requestThree])
+.then(axios.spread((...response)=> {
+  const responseOne = response[0]
+  const responseTwo = response[1]
+  const responseThree = response[2]
+  console.log(responseThree["data"])
+  var three = responseThree["data"]
+  var round = responseOne["data"]["MRData"]["StandingsTable"]["StandingsLists"][0]
+  var driver = responseOne["data"]["MRData"]["StandingsTable"]["StandingsLists"][0]["DriverStandings"]
+  var constructor = responseTwo["data"]["MRData"]["StandingsTable"]["StandingsLists"][0]["ConstructorStandings"]
+  res.render('pages/test',
+  {
+    driversround : three,
+    round: round,
+    driver:driver,
+    constructor: constructor
+  })
+}))
+
+});
 // the data from the selected language will be inserted into this endpoint using post
 app.post('/process_form', function(req, res){
 
@@ -93,8 +131,8 @@ app.post('/process_form', function(req, res){
 
 
     
- //   axios.get(`https://ergast.com/api/f1/2021/${lang}/results.json`,`http://ergast.com/api/f1/2021/${lang}/qualifying.json`)
-   // .then((response),(responseq) => {
+ //   axios.get(`https://ergast.com/api/f1/2021/${lang}/results.json`)
+   // .then((response) => {
       
         // insert the response from the api into the variable data in JSON form
       //  var data = response.data;

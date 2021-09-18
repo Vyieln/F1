@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>F1nfo</title>
+    
+</head>
+
+<body >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- header -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3"> 
+        <div class="container">
+        <a href="#" class="navbar-brand"> F1nfo</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bar">
+            <span class="nabar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="bar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="#standings" class="nav-link">standings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#drivers" class="nav-link">drivers</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="#tracks" class="nav-link">tracks</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+    </nav>
+    <!-- header -->
+
+    <section class="bg-dark text-light p-5 text-center text-sm-start">
+        <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div>
+                    <h1> <span class="text-warning"> Formula 1</span> home of the fastest drivers </h1>
+                    <p class="lead my-4">
+                        
+                        20 drivers. 10 teams. 1 champions.
+                    </p>
+                </div>
+                <img class="img-fluid w-20 d-none d-sm-block" src="LewisHamilton.png" alt=""/>
+            </div>
+        </div>
+    </section>
+    <main>
+
+    </main>
+
+    <footer>
+        <!-- calls onto the footer.ejs to insert the code into the file. -->
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>
